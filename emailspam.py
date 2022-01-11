@@ -1,4 +1,5 @@
 import smtplib, ssl
+from time import sleep
 
 def get_emails():
     with open('email.txt') as f:
@@ -44,9 +45,14 @@ def send_email(senderaddr, receiveraddr):
         print(e)
     try:
         while(True):
-            server.sendmail(sender_email, receiver_email, message)
-            print(f'Email #{count} sent to {receiver_email} successfully')
-            count += 1
+            if count % 50 == 0:
+                sleep(10)
+                print('waiting...')
+                count += 1
+            else:
+                server.sendmail(sender_email, receiver_email, message)
+                print(f'Email #{count} sent to {receiver_email} successfully')
+                count += 1
     except Exception as e:
         # Print any error messages to stdout
         print(e)
