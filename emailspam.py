@@ -10,7 +10,8 @@ def get_emails():
         f.close()
         return sender, receiver
 
-def send_email(senderaddr, receiveraddr, quantity):
+def send_email(senderaddr, receiveraddr):
+    count = 1
     smtp_server = "smtp.gmail.com"
     port = 587  # For starttls
     sender_email = senderaddr
@@ -44,8 +45,8 @@ def send_email(senderaddr, receiveraddr, quantity):
     try:
         while(True):
             server.sendmail(sender_email, receiver_email, message)
-            print(f'Email #{quantity} sent to {receiver_email} successfully')
-            quantity += 1
+            print(f'Email #{count} sent to {receiver_email} successfully')
+            count += 1
     except Exception as e:
         # Print any error messages to stdout
         print(e)
@@ -55,4 +56,4 @@ def send_email(senderaddr, receiveraddr, quantity):
 
 if __name__ == '__main__':
     sender, receiver = get_emails()
-    send_email(senderaddr=sender, receiveraddr=receiver, quantity=1)
+    send_email(senderaddr=sender, receiveraddr=receiver)
